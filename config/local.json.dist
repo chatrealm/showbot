@@ -1,0 +1,10 @@
+{
+	"irc": {
+		"server": {
+			"name": "Superawesome IRC Server",
+			"host": "irc.example.com",
+			"nick": "showbot",
+			"channel": "#testchannel"
+		}
+	}
+}

@@ -1,0 +1,12 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+	"files.eol": "\n",
+	
+	"files.exclude": {
+		"**/.git": true,
+		"**/.DS_Store": true,
+		"**/build": true,
+		// Avoid accidentally opening it
+		"config/local.json": true
+	}
+}

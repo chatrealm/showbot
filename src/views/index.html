@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Showbot</title>
+	
+	{% if not dev %}
+	{# Let webpack take the wheel when in dev mode #}
+	<link rel="stylesheet" href="{{ '/assets/main.css' | asset }}" />
+	{% endif %}
+	<link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet" />
+</head>
+<body>
+	<div id="loading">
+		<p>Loading core...</p>
+		<noscript>
+			<p>Please enable javascript!</p>
+		</noscript>
+	</div>
+	
+	<app></app>
+	
+	<script src="{{ '/assets/main.js' | asset }}"></script>
+</body>
+</html>

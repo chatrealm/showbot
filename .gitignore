@@ -1,0 +1,18 @@
+# Logs
+npm-debug.log*
+
+# Dependency directories
+node_modules
+
+# Local config
+config/local.json
+
+# Public files
+src/public/*
+!src/public/.gitkeep
+
+# Dev only
+database/database.sqlite
+
+# Built files
+build

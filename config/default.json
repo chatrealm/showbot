@@ -1,0 +1,18 @@
+{
+	"database": {
+		"url": null,
+		"options": {}
+	},
+	"debug": false,
+	"key": "OhGodForTheLoveOfTheGodPleaseChangeMeToAMoreSecureStringOkayOkay",
+	"port": 8000,
+	"irc": {
+		"server": {
+			"host": null,
+			"nick": "showbot",
+			"options": {
+			},
+			"channel": null
+		}
+	}
+}
