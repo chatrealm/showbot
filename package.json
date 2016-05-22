@@ -2,7 +2,7 @@
   "name": "showbot",
   "version": "1.0.0",
   "description": "Node based port of lkalif/showbot",
-  "main": "index.js",
+  "main": "build/start.js",
   "private": true,
   "engines": {
     "node": ">=6.0"

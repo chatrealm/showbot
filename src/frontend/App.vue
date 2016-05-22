@@ -15,7 +15,7 @@
 		<footer class="footer">
 			<div class="container">
 				<div class="content has-text-centered">
-					<p>Powered by node-showbot. Based on <a href="https://github.com/lkalif/ShowBot" target="_blank">showbot by lkalif</a>.</p>
+					<p>Powered by <a href="https://github.com/chatrealm/showbot" target="_blank">chatrealm/showbot</a>. Based on <a href="https://github.com/lkalif/ShowBot" target="_blank">showbot by lkalif</a>.</p>
 				</div>
 			</div>
 		</footer>
