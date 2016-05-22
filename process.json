@@ -1,0 +1,11 @@
+{
+	"apps": [
+		{
+			"name": "showbot",
+			"script": "build/start.js",
+			"env_production": {
+				"NODE_ENV": "production"
+			}
+		}
+	]
+}
