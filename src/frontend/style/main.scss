@@ -1,6 +1,18 @@
 @import "~bulma";
 @import "motion-ui/motion-ui";
 
+.material-icons {
+	font-size: 21px;
+	line-height: 1em;
+	text-align: center;
+	vertical-align: top;
+	
+	.icon > & {
+		font-size: inherit;
+		line-height: inherit;
+	}
+}
+
 .table {
 	.is-empty {
 		text-align: center;
@@ -20,4 +32,8 @@
 		background-color: rgba($yellow, 1);
 		transition-duration: 0s; /* Let it instantly at start */
 	}
+}
+
+.is-uppercase {
+	text-transform: uppercase;
 }

@@ -5,7 +5,9 @@
 			:class="{'is-highlighted': isHighlighting}"
 			v-text="suggestion.votes">
 		</th>
-		<td v-text="suggestion.suggestion"></td>
+		<td :class="{'is-uppercase': uppercase}"
+			v-text="suggestion.suggestion">
+		</td>
 		<td v-text="suggestion.user"></td>
 	</tr>
 </template>
@@ -37,7 +39,8 @@
 			}
 		},
 		props: {
-			suggestion: Object
+			suggestion: Object,
+			uppercase: Boolean
 		},
 		watch: {
 			'suggestion.votes'(newVal, oldVal) {

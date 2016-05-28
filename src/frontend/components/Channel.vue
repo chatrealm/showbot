@@ -6,12 +6,33 @@
 			</div>
 		</div>
 		<div class="container" v-if="!$loadingSyncers">
-			<error
-				v-if="error"
-				transition="hinge-from-top"
-				:error="error"
-				@click="clearError">
-			</error>
+			<div class="columns">
+				<div class="column is-half">
+					<p class="control has-addons">
+						<span class="select">
+							<select>
+								<option>Voting Mode</option>
+							</select>
+						</span>
+						<a class="button"
+							:class="{'is-primary': uppercase}"
+							@click="toggleUppercase">
+							<span class="icon">
+								<i class="material-icons">format_size</i>
+							</span>
+							<span>Caps</span>
+						</a>
+					</p>
+				</div>
+				<div class="column is-half">
+					<error
+						v-if="error"
+						transition="hinge-from-top"
+						:error="error"
+						@click="clearError">
+					</error>
+				</div>
+			</div>
 			<table class="table">
 				<thead>
 					<tr>
@@ -36,6 +57,7 @@
 						track-by="id"
 						:transition="showTransition"
 						:suggestion="suggestion"
+						:uppercase="uppercase"
 						@error="onError"
 						@clear-error="clearError">
 					</tr>
@@ -65,7 +87,13 @@
 			return {
 				channel_id: 1,
 				error: null,
-				showTransition: null
+				showTransition: null,
+				uppercase: false
+			}
+		},
+		events: {
+			'syncer-error'(path, error) {
+				this.error = error
 			}
 		},
 		methods: {
@@ -79,6 +107,9 @@
 						this.error = null
 					}
 				}, 5000)
+			},
+			toggleUppercase() {
+				this.uppercase = !this.uppercase
 			}
 		},
 		sync: {
