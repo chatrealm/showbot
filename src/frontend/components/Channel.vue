@@ -125,7 +125,7 @@
 		watch: {
 			'$loadingSyncers'(newValue) {
 				this.$nextTick(() => {
-					this.showTransition = !newValue ? 'hinge-from-top' : null
+					this.showTransition = !newValue ? 'fade' : null
 				})
 			}
 		}
