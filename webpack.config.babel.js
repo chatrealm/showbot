@@ -11,7 +11,8 @@ export default function ({
 
 	return {
 		entry: {
-			main: ['./src/frontend/main.js', './src/frontend/style/main.scss']
+			main: ['./src/frontend/main.js', './src/frontend/style/main.scss'],
+			polyfill: ['core-js/es6/array', 'core-js/es6/object', 'core-js/es6/promise']
 		},
 		output: {
 			filename: prod ? '[name].[chunkhash].bundle.js' : '[name].js',

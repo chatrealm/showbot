@@ -20,6 +20,9 @@
 	
 	<app></app>
 	
+	<script>
+		if (!window.Promise) { document.write('<script src="{{ '/assets/polyfill.js' | asset }}"><\/script>'); }
+	</script>
 	<script src="{{ '/assets/main.js' | asset }}"></script>
 </body>
 </html>
