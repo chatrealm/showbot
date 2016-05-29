@@ -10,8 +10,9 @@
 				<div class="column is-half">
 					<p class="control has-addons">
 						<span class="select">
-							<select>
-								<option>Voting Mode</option>
+							<select v-model="mode">
+								<option value="voting">Voting Mode</option>
+								<option value="copying">Copying Mode</option>
 							</select>
 						</span>
 						<a class="button"
@@ -56,6 +57,7 @@
 						v-for="suggestion in orderedSuggestions"
 						track-by="id"
 						:transition="showTransition"
+						:can-vote="canVote"
 						:suggestion="suggestion"
 						:uppercase="uppercase"
 						@error="onError"
@@ -79,6 +81,9 @@
 			Suggestion
 		},
 		computed: {
+			canVote() {
+				return this.mode === 'voting'
+			},
 			orderedSuggestions() {
 				return orderBy(this.suggestions, ['votes', 'created_at'], ['desc', 'asc'])
 			}
@@ -87,6 +92,7 @@
 			return {
 				channel_id: 1,
 				error: null,
+				mode: 'voting',
 				showTransition: null,
 				uppercase: false
 			}

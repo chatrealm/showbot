@@ -15,11 +15,6 @@
 <script>
 
 	export default {
-		computed: {
-			canVote() {
-				return true
-			}
-		},
 		data() {
 			return {
 				isHighlighting: false
@@ -39,6 +34,7 @@
 			}
 		},
 		props: {
+			canVote: Boolean,
 			suggestion: Object,
 			uppercase: Boolean
 		},
