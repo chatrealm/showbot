@@ -38,7 +38,7 @@ function cleanSuggestionVotes() {
 	return async function (hook) {
 		const data = hook.result
 
-		const suggestionIDs = _(data).map('id')
+		const suggestionIDs = _(data).map('id').value()
 
 		// Remove all votes that are related to this suggestion
 		await hook.app.service('api/votes').remove(null, {
