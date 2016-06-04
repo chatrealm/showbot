@@ -67,7 +67,7 @@ export default function () {
 
 	votesService.before({
 		find: [disable('external')],
-		// get: [disable('external')], // bug in feathers-knex
+		get: [disable('external')],
 		create: [makeSureUserHasntVoted()],
 		update: [disable('external')],
 		patch: [disable('external')],
