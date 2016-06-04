@@ -30,3 +30,17 @@ npm run build
 [Install a database driver](http://knexjs.org/#Installation-node) and configure it in config/local.json
 
 Pm2 config file is included for long running.
+
+# IRC Commands Manual
+
+## Channel
+
+### Everyone
+
+* `!s <title>` - Add title to the list of suggestions
+
+### Channel Opers (+q/+a/+o/+h)
+
+* `!showbot delete <suggestion>` / `!showbot remove <suggestion>` - Removes a suggestion from the list
+* `!showbot reset` - Removes all suggestions for the channel
+* `!showbot top` - Says the current top 5 in the channel
