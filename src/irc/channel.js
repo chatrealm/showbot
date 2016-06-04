@@ -45,6 +45,26 @@ const handlers = {
 					this.client.say(this.channel, 'Suggestions list has been cleared.')
 					break
 				}
+				case 'top': {
+					if (!canAccess(this.users[nick], adminModes)) {
+						debug(`${nick} tried to run top without permission`)
+						break
+					}
+					const suggestions = await this.app.service('api/suggestions').find({
+						query: {
+							channel_id: this.id, // eslint-disable-line camelcase
+							$limit: 5,
+							$sort: {
+								votes: -1
+							}
+						}
+					})
+					this.client.say(this.channel, `Current top ${suggestions.length} suggestions:`)
+					suggestions.forEach(suggestion => {
+						this.client.say(this.channel, `[${suggestion.votes}] ${suggestion.suggestion} (${suggestion.user})`)
+					})
+					break
+				}
 				default: {
 					// Command doesn't exist
 					break
