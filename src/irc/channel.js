@@ -65,6 +65,26 @@ const handlers = {
 					})
 					break
 				}
+				case 'delete':
+				case 'remove': {
+					if (!canAccess(this.users[nick], adminModes)) {
+						debug(`${nick} tried to run delete without permission`)
+						break
+					}
+					const suggestion = values.join(' ')
+					const removed = await this.app.service('api/suggestions').remove(null, {
+						query: {
+							channel_id: this.id, // eslint-disable-line camelcase
+							suggestion
+						}
+					})
+					if (removed.length) {
+						this.client.notice(nick, `Removed ${removed.length} suggestions`)
+					} else {
+						this.client.notice(nick, 'Found nothing to remove')
+					}
+					break
+				}
 				default: {
 					// Command doesn't exist
 					break
