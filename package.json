@@ -16,7 +16,7 @@
     "copy:files": "copyfiles -u 1 src/views/* src/views/**/* build",
     "dev": "npm-run-all dev:nodemon-update-fix --parallel dev:server dev:webpack",
     "dev:nodemon-update-fix": "nodemon -v || true",
-    "dev:server": "cross-env NODE_ENV=development NODE_CONFIG='{\\\"dev\\\":true}' nodemon --exec babel-node --debug src/start.js",
+    "dev:server": "cross-env NODE_ENV=development NODE_CONFIG='{\\\"dev\\\":true,\\\"port\\\":8000}' nodemon --exec babel-node --debug src/start.js",
     "dev:webpack": "nodemon --exec babel-node --watch bin/dev-server.js --watch webpack.config.babel.js bin/dev-server.js",
     "lint": "xo",
     "migrate": "knex migrate:latest",
