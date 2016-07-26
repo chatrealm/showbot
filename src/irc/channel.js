@@ -142,7 +142,7 @@ export default class Channel {
 		})
 		this.client.on('nick', ({nick, new_nick}) => { // eslint-disable-line camelcase
 			if (nick in this.users) {
-				this.users[new_nick] = [] // eslint-disable-line camelcase
+				this.users[new_nick] = this.users[nick] // eslint-disable-line camelcase
 				delete this.users[nick]
 			}
 		})
