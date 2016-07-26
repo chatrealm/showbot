@@ -22,8 +22,8 @@ const handlers = {
 					user: nick
 				})
 				this.client.notice(nick, 'Suggestion has been added')
-			} catch (e) {
-				this.client.notice(nick, e.message)
+			} catch (err) {
+				this.client.notice(nick, err.message)
 			}
 		}
 	},
@@ -204,8 +204,8 @@ export default class Channel {
 	handleCommand(nick, command, ...values) {
 		const handler = handlers[command]
 		if (handler) {
-			handler.handle.call(this, nick, ...values).catch(e => {
-				this.client.notice(nick, `Internal error: ${e.message}`)
+			handler.handle.call(this, nick, ...values).catch(err => {
+				this.client.notice(nick, `Internal error: ${err.message}`)
 			})
 		}
 	}

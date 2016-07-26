@@ -1,12 +1,12 @@
 /* eslint-env browser */
 import Vue from 'vue'
 import VueSyncersFeathers from 'vue-syncers-feathers'
+import feathers from './feathers'
+import App from './App.vue'
 
 if (process.env.NODE_ENV !== 'production') {
 	Vue.config.debug = true
 }
-
-import feathers from './feathers'
 
 // For ease of use
 Vue.prototype.$feathers = feathers
@@ -21,8 +21,6 @@ Vue.use(VueSyncersFeathers, {
 })
 
 // Set up instance
-import App from './App.vue'
-
 const app = new Vue({
 	el: 'body',
 	components: {

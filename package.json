@@ -93,17 +93,24 @@
     "exnext": true,
     "ignores": [
       "build/**/*.*",
-      "src/public/**/*",
-      "**/*.vue"
+      "src/public/**/*"
     ],
-    "semicolon": false,
     "overrides": [
       {
         "files": "database/migrations/*.js",
         "rules": {
           "xo/filename-case": 0
         }
+      },
+      {
+        "files": "src/frontend/**/*",
+        "rules": {
+          "import/namespace": 0,
+          "import/no-named-as-default-member": 0,
+          "import/no-named-as-default": 0
+        }
       }
-    ]
+    ],
+    "semicolon": false
   }
 }

@@ -73,7 +73,7 @@ export default function () {
 		remove: [cleanSuggestionVotes()]
 	})
 
-	suggestionsService.filter((data) => {
+	suggestionsService.filter(data => {
 		return _.omit(data, ['hash'])
 	})
 }

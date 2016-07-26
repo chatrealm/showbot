@@ -34,7 +34,7 @@ export default function () {
 		all: [remove('settings')]
 	})
 
-	serversService.filter((data) => {
+	serversService.filter(data => {
 		return _.pick(data, ['id', 'slug', 'name'])
 	})
 }

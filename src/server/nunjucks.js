@@ -24,17 +24,17 @@ export default function () {
 
 	env.addGlobal('dev', dev)
 
-	env.addFilter('json', (obj) => {
+	env.addFilter('json', obj => {
 		return JSON.stringify(obj)
 	})
 
 	// Pretty dump
-	env.addFilter('dump', (obj) => {
+	env.addFilter('dump', obj => {
 		return JSON.stringify(obj, null, '  ')
 	})
 
 	// Production asset build handler
-	fs.exists(manifestLocation, (exists) => {
+	fs.exists(manifestLocation, exists => {
 		let filter
 
 		if (exists) {
@@ -47,7 +47,7 @@ export default function () {
 					encoding: 'utf8'
 				})
 				mapping = JSON.parse(mapping)
-			} catch (e) { }
+			} catch (err) { }
 
 			if (!mapping) {
 				mapping = {}

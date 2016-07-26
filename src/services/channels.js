@@ -29,7 +29,7 @@ export default function () {
 	channelsService.after({
 	})
 
-	channelsService.filter((data) => {
+	channelsService.filter(data => {
 		return _.pick(data, ['id', 'server_id', 'channel'])
 	})
 }

@@ -9,7 +9,7 @@ makeServer().then(app => {
 	app.start()
 
 	global.app = app
-}).catch(e => {
-	console.error(e.stack)
+}).catch(err => {
+	console.error(err.stack)
 	process.exit(1)
 })

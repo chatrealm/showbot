@@ -1,10 +1,9 @@
 import Bluebird from 'bluebird'
+import errors from 'feathers-errors'
 
 export {
 disable, remove, removeQuery, pluck, pluckQuery
 } from 'feathers-hooks'
-
-import errors from 'feathers-errors'
 
 // Mapping over data or result
 export function map(callback) {
@@ -140,7 +139,7 @@ export function queryMustInclude(...fields) {
 
 // Mostly taken from feathers-hooks, changed to run checking per thing
 export function removeIndividually(...fields) {
-	const callback = typeof fields[fields.length - 1] === 'function' ? fields.pop() : (hook) => Boolean(hook.params.provider)
+	const callback = typeof fields[fields.length - 1] === 'function' ? fields.pop() : hook => Boolean(hook.params.provider)
 
 	const removeFields = function (hook, data) {
 		if (callback.call(this, hook, data)) {

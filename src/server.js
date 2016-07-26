@@ -51,7 +51,7 @@ async function ensureDatabase() {
 }
 
 function startServer() {
-	return new Promise((resolve) => {
+	return new Promise(resolve => {
 		const port = config.get('port')
 		this.listen(port, () => {
 			debug(`Listening on port ${port}`)
