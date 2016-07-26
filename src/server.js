@@ -39,9 +39,7 @@ export default async function () {
 
 	app.configure(ircSetup)
 
-	await startServer(app)
-
-	await app.irc.boot()
+	app.start = startServer
 
 	return app
 }
@@ -52,12 +50,12 @@ async function ensureDatabase() {
 	}
 }
 
-function startServer(app) {
+function startServer() {
 	return new Promise((resolve) => {
 		const port = config.get('port')
-		app.listen(port, () => {
+		this.listen(port, () => {
 			debug(`Listening on port ${port}`)
-			resolve()
+			resolve(this.irc.boot())
 		})
 	})
 }

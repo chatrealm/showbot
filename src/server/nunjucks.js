@@ -12,7 +12,10 @@ const manifestLocation = path.join(__dirname, '../public/manifest.json')
 export default function () {
 	const app = this
 
-	const dev = config.has('dev') && config.get('dev')
+	let dev = false
+	if (config.has('dev')) {
+		dev = config.get('dev')
+	}
 
 	const env = nunjucks.configure(path.join(__dirname, '../views'), {
 		watch: dev,

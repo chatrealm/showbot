@@ -6,6 +6,8 @@ import './config'
 import makeServer from './server'
 
 makeServer().then(app => {
+	app.start()
+
 	global.app = app
 }).catch(e => {
 	console.error(e.stack)
