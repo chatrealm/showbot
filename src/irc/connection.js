@@ -36,6 +36,11 @@ export default class Connection {
 			debug('Connected with server', this.id)
 			this.joinChannels().catch(console.error)
 		})
+		client.on('close', () => {
+			_.forEach(this.channels, channel => {
+				channel.unbindEvents()
+			})
+		})
 	}
 
 	async joinChannels() {

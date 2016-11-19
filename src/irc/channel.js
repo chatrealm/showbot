@@ -99,6 +99,7 @@ export default class Channel {
 		this.connection = connection
 		this.info = info
 		this.users = {}
+		this._unlisteners = []
 
 		this.ignoring = false
 
@@ -128,40 +129,53 @@ export default class Channel {
 		this._bindMessages()
 	}
 
+	unbindEvents() {
+		this._unlisteners.forEach(remover => {
+			remover()
+		})
+	}
+
+	_listenForClientEvent(event, callback) {
+		this.client.on(event, callback)
+		this._unlisteners.push(() => {
+			this.client.removeListener(event, callback)
+		})
+	}
+
 	_bindUserEvents() {
 		// User list management
-		this.client.on('userlist', ({channel, users}) => {
+		this._listenForClientEvent('userlist', ({channel, users}) => {
 			if (channel === this.channel) {
 				this.users = _(users).keyBy('nick').mapValues('modes').value()
 			}
 		})
-		this.client.on('join', ({channel, nick}) => {
+		this._listenForClientEvent('join', ({channel, nick}) => {
 			if (channel === this.channel) {
 				this.users[nick] = []
 			}
 		})
-		this.client.on('nick', ({nick, new_nick}) => { // eslint-disable-line camelcase
+		this._listenForClientEvent('nick', ({nick, new_nick}) => { // eslint-disable-line camelcase
 			if (nick in this.users) {
 				this.users[new_nick] = this.users[nick] // eslint-disable-line camelcase
 				delete this.users[nick]
 			}
 		})
-		this.client.on('part', ({channel, nick}) => {
+		this._listenForClientEvent('part', ({channel, nick}) => {
 			if (channel === this.channel && nick in this.users) {
 				delete this.users[nick]
 			}
 		})
-		this.client.on('kick', ({channel, nick}) => {
+		this._listenForClientEvent('kick', ({channel, nick}) => {
 			if (channel === this.channel && nick in this.users) {
 				delete this.users[nick]
 			}
 		})
-		this.client.on('quit', ({nick}) => {
+		this._listenForClientEvent('quit', ({nick}) => {
 			if (nick in this.users) {
 				delete this.users[nick]
 			}
 		})
-		this.client.on('mode', ({target, modes}) => {
+		this._listenForClientEvent('mode', ({target, modes}) => {
 			if (target === this.channel) {
 				_.map(modes, ({mode, param}) => {
 					const [add, letter] = mode.split('')
@@ -179,7 +193,7 @@ export default class Channel {
 	}
 
 	_bindMessages() {
-		this.client.on('message', ({target, nick, message, from_server}) => { // eslint-disable-line camelcase
+		this._listenForClientEvent('message', ({target, nick, message, from_server}) => { // eslint-disable-line camelcase
 			if (target === this.channel && !this.ignoring) {
 				if (from_server) { // eslint-disable-line camelcase
 					// handle +H
