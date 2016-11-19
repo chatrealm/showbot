@@ -7,3 +7,8 @@
 	@include transition-basics();
 	transition-property: transform;
 }
+
+/* Fake moving transition to allow hot-swapping without problems */
+.list-disabled-move {
+	transition-duration: 1ms;
+}

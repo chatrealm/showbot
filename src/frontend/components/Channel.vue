@@ -90,7 +90,7 @@
 					v-if="orderedSuggestions.length > 0"
 					name="fade"
 					tag="tbody"
-					:move-class="settings.animations ? 'list-move' : null">
+					:move-class="settings.animations ? 'list-move' : 'list-disabled-move'">
 					<tr is="suggestion"
 						v-for="suggestion in orderedSuggestions"
 						:key="suggestion.id"
@@ -157,7 +157,9 @@
 				this.error = null
 			},
 			mouseEntersList() {
-				this.freezeOrder = true
+				if (this.settings.animations) {
+					this.freezeOrder = true
+				}
 			},
 			mouseLeavesList(e, delay) {
 				if (delay) {
