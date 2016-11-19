@@ -1,17 +1,16 @@
 <template>
 	<div class="wrapper">
-		<nav class="nav has-shadow">
-			<div class="nav-left">
-				<span class="nav-item">Showbot</span>
-			</div>
-		</nav>
 		<div class="notification"
 			v-if="!connection.connected"
 			:class="{'is-warning': !initialConnect}">
 			<h2>Connecting with backend...</h2>
 			<p v-text="connection.reason"></p>
 		</div>
-		<channel v-if="connection.connected"></channel>
+		<channel
+			v-if="connection.connected"
+			:settings="settings"
+			@change-setting="changeSetting">
+		</channel>
 		<footer class="footer">
 			<div class="container">
 				<div class="content has-text-centered">
@@ -27,6 +26,11 @@
 
 	import connectionMixin from './mixins/connection'
 
+	const defaultSettings = {
+		animations: false,
+		freezeOnHover: true
+	}
+
 	export default {
 		mixins: [connectionMixin],
 		components: {
@@ -35,6 +39,29 @@
 		computed: {
 			initialConnect() {
 				return this.connection.reason === 'Connecting...'
+			}
+		},
+		data() {
+			let userSettings
+			if (localStorage) {
+				userSettings = JSON.parse(localStorage.getItem('showbot-settings'))
+			}
+			if (!userSettings) {
+				userSettings = {}
+			}
+
+			const settings = Object.assign({}, defaultSettings, userSettings)
+
+			return {
+				settings
+			}
+		},
+		methods: {
+			changeSetting(setting, value) {
+				this.settings[setting] = value
+				if (localStorage) {
+					localStorage.setItem('showbot-settings', JSON.stringify(this.settings))
+				}
 			}
 		}
 	}

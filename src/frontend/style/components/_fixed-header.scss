@@ -1,0 +1,30 @@
+.fixed-header {
+	background: #fff;
+	box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1);
+	left: 0;
+	position: fixed;
+	right: 0;
+	top: 0;
+	z-index: 10000;
+
+	& > .nav {
+		position: relative;
+	}
+	& > .nav > .container {
+		padding: 5px;
+	}
+
+	.container > .columns {
+		width: inherit;
+	}
+	/* .column to overrule .is-gapless */
+	.column.fixed-header-actions {
+		padding: 10px;
+	}
+	.column.fixed-header-info {
+		align-self: flex-end;
+		@include tablet() {
+			padding: 10px;
+		}
+	}
+}

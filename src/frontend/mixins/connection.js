@@ -7,14 +7,16 @@ export default {
 			}
 		}
 	},
-	ready() {
+	mounted() {
 		// hook into feathers client
 		const socket = this.$feathers.io
 
-		socket.on('connect', () => {
+		const connected = () => {
 			this.connection.connected = true
 			this.connection.reason = ''
-		})
+		}
+
+		socket.on('connect', connected)
 
 		socket.on('connect_error', reason => {
 			this.connection.connected = false
@@ -37,5 +39,9 @@ export default {
 			this.connection.connected = false
 			this.connection.reason = `Connection failed, try again later`
 		})
+
+		if (socket.connected) {
+			connected()
+		}
 	}
 }

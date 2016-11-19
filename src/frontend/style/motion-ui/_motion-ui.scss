@@ -2,3 +2,8 @@
 @import "vue/vue_mui";
 
 @include vue-mui-transitions;
+
+.list-move {
+	@include transition-basics();
+	transition-property: transform;
+}

@@ -8,6 +8,28 @@ export default function ({
 	prod = false
 } = {}) {
 	const outFolder = prod ? path.resolve(__dirname, './build/public/assets') : path.resolve(__dirname, './src/public/assets')
+	const plugins = [
+		new ExtractTextPlugin({
+			filename: '[name].[contenthash].css',
+			disable: !prod // Don't extract in dev for hot reloads
+		}),
+		new webpack.LoaderOptionsPlugin({
+			options: {
+				babel: {
+					babelrc: false,
+					presets: [
+						['env', {
+							targets: {
+								browsers: '> 1%, last 2 versions, Firefox ESR'
+							},
+							modules: false
+						}]
+					],
+					plugins: ['transform-runtime']
+				}
+			}
+		})
+	]
 
 	return {
 		entry: {
@@ -21,33 +43,35 @@ export default function ({
 			chunkFilename: prod ? '[name].[id].[chunkhash].js' : '[name].[id].js'
 		},
 		module: {
-			loaders: [
+			rules: [
 				{
 					// Vue files
 					test: /\.vue$/,
-					loader: 'vue'
+					loader: 'vue-loader'
 				},
 				{
 					// JS
 					test: /\.js$/,
 					exclude: /node_modules/,
-					loader: 'babel'
+					loader: 'babel-loader'
 				},
 				{
 					// Sass
 					test: /\.scss$/,
-					// Disable sass minification so css-loader handles it
-					loader: prod ? ExtractTextPlugin.extract(['css', 'sass?outputStyle=nested']) : ['style', 'css', 'sass']
+					loader: ExtractTextPlugin.extract({
+						loader: ['css-loader', 'postcss-loader', 'sass-loader'],
+						fallbackLoader: 'style-loader'
+					})
 				},
 				{
 					// JaaaaSON
 					test: /\.json$/,
-					loader: 'json'
+					loader: 'json-loader'
 				},
 				{
 					// Images and other shenaniganiganidingdongs
 					test: /\.(png|jpe?g|gif|svg|woff2?|eot|ttf|otf)(\?.*)?$/,
-					loader: 'url',
+					loader: 'url-loader',
 					query: {
 						limit: 10000,
 						name: prod ? '[name].[hash:7].[ext]' : '[name].[ext]'
@@ -55,17 +79,12 @@ export default function ({
 				}
 			]
 		},
-		babel: {
-			presets: ['es2015-webpack'],
-			plugins: ['transform-runtime']
-		},
-		plugins: prod ?
+		plugins: plugins.concat(prod ?
 			[
 				new ManifestPlugin({
 					basePath: '/assets/',
 					fileName: '../manifest.json'
 				}),
-				new ExtractTextPlugin('[name].[contenthash].css'),
 				new webpack.DefinePlugin({
 					'process.env': {
 						NODE_ENV: '"production"'
@@ -77,5 +96,6 @@ export default function ({
 					}
 				})
 			] : []
+		)
 	}
 }

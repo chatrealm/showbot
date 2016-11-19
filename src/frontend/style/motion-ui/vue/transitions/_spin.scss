@@ -14,26 +14,37 @@
 	$timing: null,
 	$delay: null
 ) {
-	$spin: spin(out, $direction, $amount);
+	$spin-in: spin(in, $direction, $amount);
+	$spin-out: spin(out, $direction, $amount);
 
-	// Initial state
-	&-transition {
+	&-enter-active, &-leave-active {
 		@include transition-basics($duration, $timing, $delay);
-		@include -mui-keyframe-get($spin, 0);
-
 		@if $fade {
 			transition-property: transform, opacity;
 			opacity: 1;
 		} @else {
-			transition-property: transform, opacity;
+			transition-property: transform;
 		}
+		backface-visibility: hidden;
 	}
-	// End state
-	&-enter, &-leave {
-		@include -mui-keyframe-get($spin, 100);
 
+	&-enter-active {
+		@include -mui-keyframe-get($spin-in, 100);
+	}
+	&-enter {
+		@include -mui-keyframe-get($spin-in, 0);
 		@if $fade {
 			opacity: 0;
 		}
+	}
+
+	&-leave-active {
+		@include -mui-keyframe-get($spin-out, 100);
+		@if $fade {
+			opacity: 0;
+		}
+	}
+	&-leave {
+		@include -mui-keyframe-get($spin-out, 0);
 	}
 }

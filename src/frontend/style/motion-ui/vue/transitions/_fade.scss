@@ -11,19 +11,25 @@
 	$timing: null,
 	$delay: null
 ) {
-	// Reversed to emulate out state
-	$fade: fade($to, $from);
+	$fade-in: fade($from, $to);
+	$fade-out: fade($to, $from);
 
-	// Initial state
-	&-transition {
+	&-enter-active, &-leave-active {
 		@include transition-basics($duration, $timing, $delay);
-		@include -mui-keyframe-get($fade, 0);
-
 		transition-property: opacity;
 	}
 
-	// End state
-	&-enter, &-leave {
-		@include -mui-keyframe-get($fade, 100);
+	&-enter-active {
+		@include -mui-keyframe-get($fade-in, 100);
+	}
+	&-enter {
+		@include -mui-keyframe-get($fade-in, 0);
+	}
+
+	&-leave-active {
+		@include -mui-keyframe-get($fade-out, 100);
+	}
+	&-leave {
+		@include -mui-keyframe-get($fade-out, 0);
 	}
 }

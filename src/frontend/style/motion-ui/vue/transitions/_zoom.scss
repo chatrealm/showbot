@@ -15,27 +15,38 @@
 	$delay: null
 ) {
 	// Reversed to emulate out state
-	$scale: zoom($to, $from);
+	$scale-in: zoom($from, $to);
+	$scale-out: zoom($to, $from);
 
-	// Initial state
-	&-transition {
+	&-enter-active, &-leave-active {
 		@include transition-basics($duration, $timing, $delay);
-		@include -mui-keyframe-get($scale, 0);
-
 		@if $fade {
 			transition-property: transform, opacity;
 			opacity: 1;
 		} @else {
-			transition-property: transform, opacity;
+			transition-property: transform;
 		}
+		backface-visibility: hidden;
 	}
-	// End state
-	&-enter, &-leave {
-		@include -mui-keyframe-get($scale, 100);
 
+	&-enter-active {
+		@include -mui-keyframe-get($scale-in, 100);
+	}
+	&-enter {
+		@include -mui-keyframe-get($scale-in, 0);
 		@if $fade {
 			opacity: 0;
 		}
+	}
+
+	&-leave-active {
+		@include -mui-keyframe-get($scale-out, 100);
+		@if $fade {
+			opacity: 0;
+		}
+	}
+	&-leave {
+		@include -mui-keyframe-get($scale-out, 0);
 	}
 }
 

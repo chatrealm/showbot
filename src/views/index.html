@@ -2,8 +2,10 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Showbot</title>
-	
+
 	{% if not dev %}
 	{# Let webpack take the wheel when in dev mode #}
 	<link rel="stylesheet" href="{{ '/assets/main.css' | asset }}" />
@@ -21,9 +23,9 @@
 			</div>
 		</div>
 	</section>
-	
-	<app></app>
-	
+
+	<div id="app"></div>
+
 	<script>
 		if (!window.Promise) { document.write('<script src="{{ '/assets/polyfill.js' | asset }}"><\/script>'); }
 	</script>

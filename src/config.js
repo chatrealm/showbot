@@ -5,5 +5,5 @@ export default config
 
 // Configure debug
 if (config.get('debug')) {
-	debug.enable(config.get('debug'))
+	debug.enable(config.get('debug').join(','))
 }

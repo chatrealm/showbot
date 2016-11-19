@@ -1,12 +1,15 @@
+@import "settings";
 @import "~bulma";
 @import "motion-ui/motion-ui";
+
+@import "components/fixed-header";
 
 .material-icons {
 	font-size: 21px;
 	line-height: 1em;
 	text-align: center;
 	vertical-align: top;
-	
+
 	.icon > & {
 		font-size: inherit;
 		line-height: inherit;
@@ -32,7 +35,7 @@
 .highlightable {
 	background-color: rgba($yellow, 0);
 	transition: background-color 1s;
-	
+
 	&.is-highlighted {
 		background-color: rgba($yellow, 1);
 		transition-duration: 0s; /* Let it instantly at start */

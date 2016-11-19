@@ -7,6 +7,18 @@
 			}
 		}
 	},
-	"debug": "*,-engine*,-express:application,-express:router:*,-feathers-authentication:*,-follow-redirects,-knex:client,-pool2,-socket.io*",
+	"debug": [
+		"*",
+		"-engine*",
+		"-express:application",
+		"-express:router:*",
+		"-feathers-authentication:*",
+		"-feathers-socket-commons:methods",
+		"-follow-redirects",
+		"-knex:client",
+		"-knex:pool",
+		"-pool2",
+		"-socket.io*"
+	],
 	"key": "AlrightIllLetYouPassForThisTimeButPleaseMakeAMoreSecureKeyOkayOkay"
 }

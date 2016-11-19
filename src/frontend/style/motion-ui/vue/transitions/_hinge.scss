@@ -17,27 +17,38 @@
 	$timing: null,
 	$delay: null
 ) {
-	$hinge: hinge(out, $from, $axis, $perspective, $turn-origin);
+	// Used reversed as -active needs the origin value
+	$hinge-in: hinge(in, $from, $axis, $perspective, $turn-origin);
+	$hinge-out: hinge(out, $from, $axis, $perspective, $turn-origin);
 
-	// Initial state
-	&-transition {
+	&-enter-active, &-leave-active {
 		@include transition-basics($duration, $timing, $delay);
-		@include -mui-keyframe-get($hinge, 0);
-
 		@if $fade {
 			transition-property: transform, opacity;
 			opacity: 1;
 		} @else {
-			transition-property: transform, opacity;
+			transition-property: transform;
 		}
+		backface-visibility: hidden;
 	}
 
-	// End state
-	&-enter, &-leave {
-		@include -mui-keyframe-get($hinge, 100);
-
+	&-enter-active {
+		@include -mui-keyframe-get($hinge-out, 0);
+	}
+	&-enter {
+		@include -mui-keyframe-get($hinge-out, 100);
 		@if $fade {
 			opacity: 0;
 		}
+	}
+
+	&-leave-active {
+		@include -mui-keyframe-get($hinge-in, 0);
+		@if $fade {
+			opacity: 0;
+		}
+	}
+	&-leave {
+		@include -mui-keyframe-get($hinge-in, 100);
 	}
 }
