@@ -1,5 +1,4 @@
 import feathers from 'feathers/client'
-import feathersAuth from 'feathers-authentication/client'
 import feathersHooks from 'feathers-hooks'
 import feathersSocketIO from 'feathers-socketio/client'
 import io from 'socket.io-client'
@@ -12,6 +11,5 @@ const client = feathers()
 
 client.configure(feathersSocketIO(socket))
 client.configure(feathersHooks())
-client.configure(feathersAuth())
 
 export default client

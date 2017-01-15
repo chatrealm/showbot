@@ -4,6 +4,16 @@
 
 @import "components/fixed-header";
 
+.wrapper {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+
+	& > .footer {
+		flex-grow: 1;
+	}
+}
+
 .material-icons {
 	font-size: 21px;
 	line-height: 1em;

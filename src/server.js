@@ -7,7 +7,7 @@ import hooks from 'feathers-hooks'
 
 import {before as beforeMiddleware, after as afterMiddleware} from './server/middleware'
 import config from './config'
-import database from './database'
+import getDatabase from './database'
 import ircSetup from './server/irc'
 import nunjucks from './server/nunjucks'
 import services from './server/services'
@@ -16,9 +16,10 @@ import {configure as socketioConfigure} from './server/socket'
 const debug = makeDebug('app:server')
 
 export default async function () {
-	await ensureDatabase()
-
 	const app = feathers()
+
+	app.db = await getDatabase()
+	await ensureDatabase(app.db)
 
 	app.configure(nunjucks)
 
@@ -44,8 +45,8 @@ export default async function () {
 	return app
 }
 
-async function ensureDatabase() {
-	if (await database.migrate.currentVersion() === 'none') {
+async function ensureDatabase(db) {
+	if (await db.migrate.currentVersion() === 'none') {
 		throw new Error('Database seems to be misconfigured')
 	}
 }

@@ -1,7 +1,7 @@
-/* eslint-disable xo/no-process-exit */
+#!/usr/bin/env node
 
 // Ensure config is loaded first to make sure debug gets configured
-import './config'
+import './config' // eslint-disable-line import/no-unassigned-import
 
 import makeServer from './server'
 

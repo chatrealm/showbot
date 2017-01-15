@@ -1,9 +1,7 @@
 import Bluebird from 'bluebird'
 import errors from 'feathers-errors'
 
-export {
-disable, remove, removeQuery, pluck, pluckQuery
-} from 'feathers-hooks'
+export {removeQuery, pluck, pluckQuery} from 'feathers-hooks'
 
 // Mapping over data or result
 export function map(callback) {
@@ -19,10 +17,10 @@ export function map(callback) {
 
 		if (data) {
 			if (Array.isArray(data)) {
-				// array
+				// Array
 				await Promise.all(data.map(callback.bind(this, hook)))
 			} else {
-				// one thing
+				// One thing
 				await callback.call(this, hook, data)
 			}
 		}
@@ -44,10 +42,10 @@ export function mapSeries(callback) {
 
 		if (data) {
 			if (Array.isArray(data)) {
-				// array
+				// Array
 				await Bluebird.mapSeries(data.map(callback.bind(this, hook)))
 			} else {
-				// one thing
+				// One thing
 				await callback.call(this, hook, data)
 			}
 		}
@@ -143,7 +141,7 @@ export function removeIndividually(...fields) {
 
 	const removeFields = function (hook, data) {
 		if (callback.call(this, hook, data)) {
-			for (let field of fields) {
+			for (const field of fields) {
 				data[field] = undefined
 				delete data[field]
 			}
@@ -154,7 +152,7 @@ export function removeIndividually(...fields) {
 }
 
 export function jsonStringifyFields(...fields) {
-	return map(function (hooks, item) {
+	return map((hooks, item) => {
 		fields.forEach(field => {
 			item[field] = JSON.stringify(item[field])
 		})
@@ -162,7 +160,7 @@ export function jsonStringifyFields(...fields) {
 }
 
 export function jsonParseFields(...fields) {
-	return map(function (hooks, item) {
+	return map((hooks, item) => {
 		fields.forEach(field => {
 			if (typeof item[field] === 'string') {
 				item[field] = JSON.parse(item[field])
@@ -172,7 +170,7 @@ export function jsonParseFields(...fields) {
 }
 
 export function updateTimestamps() {
-	return map(function (hook, item) {
+	return map((hook, item) => {
 		if (hook.method === 'create') {
 			item.created_at = new Date() // eslint-disable-line camelcase
 		}

@@ -1,8 +1,8 @@
 import _ from 'lodash'
 import memory from 'feathers-memory'
+import {disallow} from 'feathers-hooks-common'
 
 import config from '../config'
-import {disable} from '../hooks'
 
 export default function () {
 	const app = this
@@ -20,10 +20,10 @@ export default function () {
 	const channelsService = app.service('api/channels')
 
 	channelsService.before({
-		create: [disable()],
-		update: [disable()],
-		patch: [disable()],
-		remove: [disable()]
+		create: [disallow()],
+		update: [disallow()],
+		patch: [disallow()],
+		remove: [disallow()]
 	})
 
 	channelsService.after({

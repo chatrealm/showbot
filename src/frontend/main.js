@@ -6,7 +6,7 @@ import App from './App.vue'
 
 Vue.use(VueSyncersFeathers, {
 	aliases: true,
-	feathers: feathers
+	feathers
 })
 
 // Set up instance

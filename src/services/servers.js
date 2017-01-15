@@ -1,8 +1,8 @@
 import _ from 'lodash'
 import memory from 'feathers-memory'
+import {disallow, discard, iff, isProvider} from 'feathers-hooks-common'
 
 import config from '../config'
-import {disable, remove} from '../hooks'
 
 export default function () {
 	const app = this
@@ -24,14 +24,14 @@ export default function () {
 	const serversService = app.service('api/servers')
 
 	serversService.before({
-		create: [disable()],
-		update: [disable()],
-		patch: [disable()],
-		remove: [disable()]
+		create: [disallow()],
+		update: [disallow()],
+		patch: [disallow()],
+		remove: [disallow()]
 	})
 
 	serversService.after({
-		all: [remove('settings')]
+		all: [iff(isProvider('external'), discard('settings'))]
 	})
 
 	serversService.filter(data => {

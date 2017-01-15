@@ -3,9 +3,9 @@ import crypto from 'crypto'
 import _ from 'lodash'
 import errors from 'feathers-errors'
 import service from 'feathers-knex'
+import {disallow, discard, iff, isProvider} from 'feathers-hooks-common'
 
-import knex from '../database'
-import {disable, map, remove, updateTimestamps} from '../hooks'
+import {map, updateTimestamps} from '../hooks'
 
 function checkForDuplicates() {
 	return map(async function (hook, item) {
@@ -19,7 +19,7 @@ function checkForDuplicates() {
 			}
 		})
 
-		if (result.length) {
+		if (result.length > 0) {
 			// Check that any are exactly the same
 			const alreadyExists = _.find(result, existing => {
 				return _.toLower(existing.suggestion) === _.toLower(suggestion)
@@ -55,21 +55,21 @@ export default function () {
 	const app = this
 
 	app.service('api/suggestions', service({
-		Model: knex,
+		Model: app.db,
 		name: 'suggestions'
 	}))
 
 	const suggestionsService = app.service('api/suggestions')
 
 	suggestionsService.before({
-		create: [disable('external'), checkForDuplicates(), updateTimestamps()],
-		update: [disable('external'), updateTimestamps()],
-		patch: [disable('external'), updateTimestamps()],
-		remove: [disable('external')]
+		create: [disallow('external'), checkForDuplicates(), updateTimestamps()],
+		update: [disallow('external'), updateTimestamps()],
+		patch: [disallow('external'), updateTimestamps()],
+		remove: [disallow('external')]
 	})
 
 	suggestionsService.after({
-		all: [remove('hash')],
+		all: [iff(isProvider('external'), discard('hash'))],
 		remove: [cleanSuggestionVotes()]
 	})
 

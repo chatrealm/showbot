@@ -1,9 +1,10 @@
 import _ from 'lodash'
 import IRC from 'irc-framework'
 import makeDebug from 'debug'
-import pkgInfo from '../../package.json'
 
 import Channel from './channel'
+
+const packageJSON = require('../../package.json')
 
 const debug = makeDebug('irc:connection')
 
@@ -25,11 +26,13 @@ export default class Connection {
 	}
 
 	connect() {
-		const client = this.client = new IRC.Client()
+		const client = new IRC.Client()
+		this.client = client
+
 		client.connect(_.defaults({
 			username: this.info.settings.nick,
 			gecos: this.info.settings.nick,
-			version: `showbot-node ${pkgInfo.version} https://github.com/chatrealm/showbot`
+			version: `showbot-node ${packageJSON.version} https://github.com/chatrealm/showbot`
 		}, this.info.settings))
 
 		client.on('registered', () => {

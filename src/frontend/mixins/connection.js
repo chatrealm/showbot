@@ -8,7 +8,7 @@ export default {
 		}
 	},
 	mounted() {
-		// hook into feathers client
+		// Hook into feathers client
 		const socket = this.$feathers.io
 
 		const connected = () => {

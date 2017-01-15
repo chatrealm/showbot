@@ -11,7 +11,7 @@ function canAccess(userFlags, allowed) {
 
 const handlers = {
 	s: {
-		handle: async function (nick, ...values) {
+		async handle(nick, ...values) {
 			const suggestion = values.join(' ')
 			debug(`Suggestion from ${nick}: ${suggestion}`)
 
@@ -28,11 +28,11 @@ const handlers = {
 		}
 	},
 	showbot: {
-		handle: async function (nick, command, ...values) {
+		async handle(nick, command, ...values) {
 			debug(`Showbot command: ${command}`, values)
 			switch (command) {
 				case 'reset': {
-					// check for permission
+					// Check for permission
 					if (!canAccess(this.users[nick], adminModes)) {
 						debug(`${nick} tried to run reset without permission`)
 						break
@@ -78,7 +78,7 @@ const handlers = {
 							suggestion
 						}
 					})
-					if (removed.length) {
+					if (removed.length > 0) {
 						this.client.notice(nick, `Removed ${removed.length} suggestions`)
 					} else {
 						this.client.notice(nick, 'Found nothing to remove')
@@ -179,7 +179,7 @@ export default class Channel {
 			if (target === this.channel) {
 				_.map(modes, ({mode, param}) => {
 					const [add, letter] = mode.split('')
-					// if is in prefix that adds/removes nick to list
+					// If is in prefix that adds/removes nick to list
 					if (_.find(this.client.network.options.PREFIX, ['mode', letter])) {
 						if (add === '+') {
 							this.users[param].push(letter)

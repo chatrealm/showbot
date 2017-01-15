@@ -8,11 +8,11 @@ import WebpackNotifier from 'webpack-notifier'
 
 import webpackConfig from '../webpack.config.babel'
 
-let config = webpackConfig({
+const config = webpackConfig({
 	prod: false
 })
 
-Object.keys(config.entry).forEach(function (name) {
+Object.keys(config.entry).forEach(name => {
 	config.entry[name] = ['eventsource-polyfill', 'webpack-hot-middleware/client?reload=true'].concat(config.entry[name])
 })
 
