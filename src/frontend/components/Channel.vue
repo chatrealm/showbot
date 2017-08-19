@@ -4,43 +4,51 @@
 			<div class="container">
 				<div class="columns is-gapless is-block-mobile">
 					<div class="column is-half fixed-header-actions">
-						<p class="control has-addons">
-							<span class="select">
-								<select v-model="mode">
-									<option value="voting">Voting Mode</option>
-									<option value="copying">Copying Mode</option>
-								</select>
-							</span>
-							<a class="button"
-								:class="{'is-primary': uppercase}"
-								@click="toggleUppercase">
-								<span class="icon">
-									<i class="material-icons">format_size</i>
+						<div class="field has-addons">
+							<p class="control">
+								<span class="select">
+									<select v-model="mode">
+										<option value="voting">Voting Mode</option>
+										<option value="copying">Copying Mode</option>
+									</select>
 								</span>
-								<span>Caps</span>
-							</a>
-						</p>
-						<p class="control has-addons">
-							<a class="button"
-								:class="{'is-primary': settings.animations}"
-								@click="setSetting('animations', !settings.animations)">
-								<span class="icon">
-									<i class="material-icons">swap_vert</i>
-								</span>
-								<span>Animations</span>
-							</a>
-							<a class="button"
-								title="Stops titles from re-ordering while hovering over the list"
-								:class="{'is-primary': settings.freezeOnHover}"
-								@click="setSetting('freezeOnHover', !settings.freezeOnHover)">
-								<span class="icon">
-									<i class="material-icons">{{ freezeOrder ? 'pause_circle_filled' : 'pause_circle_outline' }}</i>
-								</span>
-								<span>
-									Freeze while reading
-								</span>
-							</a>
-						</p>
+							</p>
+							<p class="control">
+								<a class="button"
+									:class="{'is-primary': uppercase}"
+									@click="toggleUppercase">
+									<span class="icon">
+										<i class="material-icons">format_size</i>
+									</span>
+									<span>Caps</span>
+								</a>
+							</p>
+						</div>
+						<div class="field has-addons">
+							<p class="control">
+								<a class="button"
+									:class="{'is-primary': settings.animations}"
+									@click="setSetting('animations', !settings.animations)">
+									<span class="icon">
+										<i class="material-icons">swap_vert</i>
+									</span>
+									<span>Animations</span>
+								</a>
+							</p>
+							<p class="control">
+								<a class="button"
+									title="Stops titles from re-ordering while hovering over the list"
+									:class="{'is-primary': settings.freezeOnHover}"
+									@click="setSetting('freezeOnHover', !settings.freezeOnHover)">
+									<span class="icon">
+										<i class="material-icons">{{ freezeOrder ? 'pause_circle_filled' : 'pause_circle_outline' }}</i>
+									</span>
+									<span>
+										Freeze while reading
+									</span>
+								</a>
+							</p>
+						</div>
 					</div>
 					<div class="column is-half fixed-header-info">
 						<transition name="hinge-from-top" mode="out-in">
