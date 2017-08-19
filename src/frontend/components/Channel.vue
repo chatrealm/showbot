@@ -100,7 +100,7 @@
 						@error="onError"
 						@clear-error="clearError">
 					</tr>
-				</tbody>
+				</transition-group>
 			</table>
 		</div>
 	</section>
@@ -157,7 +157,7 @@
 				this.error = null
 			},
 			mouseEntersList() {
-				if (this.settings.animations) {
+				if (this.settings.freezeOnHover) {
 					this.freezeOrder = true
 				}
 			},
